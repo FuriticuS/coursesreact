@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Exaple from "./Components/Example/Exaple";
+import ExapleTwo from "./Components/Example/ExapleTwo";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <div>
+            <h1>Пример один</h1>
+
+            <Exaple name={'Audi'} year={'1994'}/>
+
+            <Exaple name={'Audi'} year={'1994'}>
+                <p>This is CHILDREN for component</p>
+            </Exaple>
+
+            <ExapleTwo />
+        </div>
+    );
 }
 
 export default App;
