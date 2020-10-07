@@ -1,0 +1,26 @@
+.car {
+  border: 1px solid #000;
+  width: 500px;
+  margin: auto;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  transition: all .3s ease;
+}
+
+//input:focus, input:active{
+//  outline: none;
+//}
+
+input.green {
+  border: 1px solid green;
+}
+
+input.red {
+  border: 1px solid red;
+}
+
+input.blue {
+  border: 2px solid blue;
+  font-weight: bold;
+}

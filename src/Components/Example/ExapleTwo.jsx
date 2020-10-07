@@ -1,17 +1,23 @@
 import React, {Component} from 'react';
 import Car from "../Car/Car";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
-class ExapleTwo extends Component{
+class ExapleTwo extends Component {
 
-    // все данные для компоненты лежат в State
-    state = {
-        cars: [
-            { name: 'VW', year: 2011 },
-            { name: 'Opel', year: 1985 },
-            { name: 'Reno', year: 2005 }
-        ],
-        pageTitle: 'Пример два'
+    constructor(props) {
+        super(props);
+        // все данные для компоненты лежат в State
+        this.state = {
+            cars: [
+                {name: 'VW', year: 2011},
+                {name: 'Opel', year: 1985},
+                {name: 'Reno', year: 2005}
+            ],
+            pageTitle: 'Пример два',
+            showCars: false
+        }
     }
+
 
     // функция для работы с внутренним state - изменение имени
     changeTitle = (title) => {
@@ -25,27 +31,72 @@ class ExapleTwo extends Component{
         })
     }
 
+    // функция для отображения машин
+    chowCars = () => {
+        this.setState({
+            showCars: !this.state.showCars
+        })
+    }
+
+    // функция для изменения имени машины
+    newNameCar = (name, index) => {
+        // находим нужный элемент по номеру index
+        const car = this.state.cars[index];
+        car.name = name;
+
+        // делаем клон нашего массива с помощью concat() или с помощью [...]
+        const cars = [...this.state.cars];
+        cars[index] = car;
+
+        //изменяем состояние state и добавляем новый массив
+        this.setState({
+            cars: cars
+        })
+    }
+
+    // функция для удаления машины
+    deleteCars = (index) => {
+        // делаем клон нашего массива с помощью concat() или с помощью [...]
+        const car = [...this.state.cars];
+        car.splice(index, 1);
+
+        //изменяем состояние state и добавляем новый массив
+        this.setState({
+            cars: car
+        })
+    }
+
     render() {
 
         const cars = this.state.cars;
 
         return (
-            <div>
+            <div style={{marginBottom: '50px'}}>
 
                 <h1>{this.state.pageTitle}</h1>
 
-                {
-                    cars.map((item, index) => {
+                {this.state.showCars &&
+                cars.map((item, index) => {
 
-                        return (
-                            <Car key={index} newNameCar={() => this.changeTitle(item.name)} name={item.name} year={item.year} />
-                            )
-                    })
+                    return (
+                        <ErrorBoundary key={index}>
+                            <Car
+                                index={index}
+                                newNameCar={(event) => this.newNameCar(event.target.value, index)}
+                                deleteCars={this.deleteCars.bind(this, index)}
+                                name={item.name}
+                                year={item.year}/>
+                        </ErrorBoundary>
+                    )
+                })
                 }
 
                 {/*изменение названия примера*/}
                 <input type="text" onChange={this.handleInput}/>
                 <button onClick={this.changeTitle.bind(this, 'Изменение названия')}>Change title</button>
+
+                {/*отображение блока машин*/}
+                <button onClick={this.chowCars}>{!this.state.showCars ? 'Show cars' : 'Hide cars'}</button>
 
             </div>
         );
