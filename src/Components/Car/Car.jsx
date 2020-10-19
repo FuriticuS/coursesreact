@@ -1,8 +1,10 @@
 import React, {useImperativeHandle, useRef} from 'react';
 import Radium from "radium";
+import {withRouter} from "react-router-dom";
+
 import './car.scss';
 
-const Car = ({index, name, year, newNameCar, deleteCars, ref}) => {
+const Car = ({ name, year, newNameCar, deleteCars, ref, history}) => {
 
     const inputClass = [];
 
@@ -37,7 +39,8 @@ const Car = ({index, name, year, newNameCar, deleteCars, ref}) => {
     }));
 
     return (
-        <div className="car" style={styleRadium}>
+        //onClick - перейдет на страницу по названию машины, где history приходит в props
+        <div className="car" style={styleRadium} onClick={() => history.push('/car/'+name.toLowerCase()+'/'+year)}>
             <h2>Название машины: {name}</h2>
             <p>Год выпуска: {year}</p>
 
@@ -56,4 +59,4 @@ const Car = ({index, name, year, newNameCar, deleteCars, ref}) => {
 };
 
 // RADIUM это HOC для компоненты Car
-export default Radium(Car);
+export default withRouter(Radium(Car));

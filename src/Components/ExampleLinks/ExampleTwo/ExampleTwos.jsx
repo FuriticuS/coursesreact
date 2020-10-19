@@ -2,10 +2,11 @@ import React from 'react';
 import ExapleTwo from "../../Example/ExapleTwo";
 import Counter from "../../Counter/Counter";
 
-const ExampleTwos = () => {
+const ExampleTwos = ({history}) => {
     return (
         <div>
-            <ExapleTwo />
+            {/*history свойства route*/}
+            <ExapleTwo history={history}/>
 
             <Counter/>
         </div>

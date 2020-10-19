@@ -66,14 +66,24 @@ class ExapleTwo extends Component {
         })
     }
 
+    // функция для возврата на главную страницу где history свойства route
+    goToHomePage = () => {
+        this.props.history.push({
+            pathname: '/'
+        });
+    }
+
     render() {
 
         const cars = this.state.cars;
 
         return (
-            <div style={{marginBottom: '50px'}}>
+            <div style={{marginBottom: '50px', display:'flex', flexDirection: 'column'}}>
 
                 <h1>{this.state.pageTitle}</h1>
+
+                {/*кнопка для возврата на главную*/}
+                <button onClick={this.goToHomePage} style={{width:'200px'}}>Home</button>
 
                 {this.state.showCars &&
                 cars.map((item, index) => {
@@ -85,19 +95,21 @@ class ExapleTwo extends Component {
                                 newNameCar={(event) => this.newNameCar(event.target.value, index)}
                                 deleteCars={this.deleteCars.bind(this, index)}
                                 name={item.name}
-                                year={item.year}/>
+                                year={item.year}
+                            />
                         </ErrorBoundary>
                     )
                 })
                 }
 
                 {/*изменение названия примера*/}
-                <input type="text" onChange={this.handleInput}/>
-                <button onClick={this.changeTitle.bind(this, 'Изменение названия')}>Change title</button>
+                <div>
+                    <input type="text" onChange={this.handleInput}/>
+                    <button onClick={this.changeTitle.bind(this, 'Изменение названия')}>Change title</button>
 
-                {/*отображение блока машин*/}
-                <button onClick={this.chowCars}>{!this.state.showCars ? 'Show cars' : 'Hide cars'}</button>
-
+                    {/*отображение блока машин*/}
+                    <button onClick={this.chowCars}>{!this.state.showCars ? 'Show cars' : 'Hide cars'}</button>
+                </div>
             </div>
         );
     }
